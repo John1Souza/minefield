@@ -71,6 +71,9 @@ public class Field {
     void undermine(){
         undermined = true;
     }
+    public boolean isMined(){
+        return undermined;
+    }
     public boolean isMarked(){
         return marked;
     }
@@ -90,7 +93,7 @@ public class Field {
         return column;
     }
 
-    boolean reachedGoal(){
+    boolean reachedGoal() {
         boolean unraveled = !undermined && isOpen;
         boolean protectedOne = undermined && marked;
         return unraveled || protectedOne;
@@ -108,7 +111,7 @@ public class Field {
     }
 
     public String toString(){
-        if(!marked){
+        if(marked){
             return ColoredText.GREEN + "x" + ColoredText.RESET;
         } else if(isOpen && undermined){
             return ColoredText.RED + "*" + ColoredText.RESET;
