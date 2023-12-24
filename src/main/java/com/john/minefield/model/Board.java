@@ -1,5 +1,41 @@
 package com.john.minefield.model;
 
-public class Board {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Board {
+    private int rows;
+    private int columns;
+    private int mines;
+
+    private final List<Field> fields = new ArrayList<>();
+
+    public Board(int rows, int columns, int mines) {
+        this.rows = rows;
+        this.columns = columns;
+        this.mines = mines;
+
+        generateFields();
+        joinNeighbors();
+        sortMines();
+    }
+
+    private void generateFields() {
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                fields.add(new Field(row, column));
+            }
+        }
+    }
+
+    private void joinNeighbors() {
+        for(Field f1: fields){
+            for(Field f2: fields){
+                f1.addNeighbors(f2);
+            }
+        }
+    }
+
+    private void sortMines() {
+    }
 }

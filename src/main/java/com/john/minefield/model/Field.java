@@ -2,6 +2,7 @@ package com.john.minefield.model;
 
 import com.john.minefield.exception.ExplosionException;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -80,4 +81,45 @@ public class Field {
     public boolean isClosed(){
         return !isOpen;
     }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    boolean reachedGoal(){
+        boolean unraveled = !undermined && isOpen;
+        boolean protectedOne = undermined && marked;
+        return unraveled || protectedOne;
+    }
+
+
+    long minesOnNeighbor(){
+        return neighbors.stream().filter(v -> v.undermined).count();
+    }
+
+    void restart(){
+        isOpen = false;
+        undermined = false;
+        marked = false;
+    }
+
+    public String toString(){
+        if(!marked){
+            return ColoredText.GREEN + "x" + ColoredText.RESET;
+        } else if(isOpen && undermined){
+            return ColoredText.RED + "*" + ColoredText.RESET;
+        }else if(isOpen && minesOnNeighbor() > 0){
+            //Unecessery Long.toString(minesOnNeighbor())
+            return ColoredText.ORANGE + Long.toString(minesOnNeighbor()) + ColoredText.RESET;
+        }else if(isOpen){
+            return " ";
+        }else{
+            return ColoredText.BLUE + "?" + ColoredText.RESET;
+        }
+    }
+
 }
