@@ -27,7 +27,7 @@ public class ConsoleBoard {
             while(wantToContinue){
                 gameCicle();
 
-                System.out.println("An other match? (Y/n) ");
+                System.out.println(ColoredText.BLUE + "An other match? (Y/n) " + ColoredText.RESET);
                 String answer = input.nextLine();
                 if("n".equalsIgnoreCase(answer)){
                     wantToContinue = false;
@@ -37,7 +37,7 @@ public class ConsoleBoard {
             }
 
         } catch (ExitException e){
-            System.out.println("Bye!!!!");
+            System.out.println(ColoredText.PURPLE + "BYE!" + ColoredText.RESET);
         }finally {
             input.close();
         }
@@ -48,10 +48,12 @@ public class ConsoleBoard {
 
             while (!board.reachedGoal()){
                 System.out.println(board);
+
                 String firstChoice = ColoredText.ORANGE +
                         "Type (x, y) or exit, to exit: " + ColoredText.RESET;
                 String secondChoice = ColoredText.CYAN +
                         "1 -> Open or 2 -> (Un)mark: " + ColoredText.RESET;
+
                 String typed = captureEnteredValue(firstChoice);
 
                 Iterator<Integer> xy = Arrays.stream(typed.split(","))
@@ -65,9 +67,10 @@ public class ConsoleBoard {
                     board.changeTag(xy.next(), xy.next());
                 }
             }
-            System.out.println(ColoredText.GREEN + "YOU WIN!");
+            System.out.println(ColoredText.GREEN + "YOU WIN!" + ColoredText.RESET);
         }catch (ExplosionException e){
-            System.out.println(ColoredText.RED + "YOU LOSE!");
+            System.out.println(board);
+            System.out.println(ColoredText.RED + "YOU LOSE!" + ColoredText.RESET);
         }
     }
 

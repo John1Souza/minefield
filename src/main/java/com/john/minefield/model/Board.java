@@ -1,5 +1,7 @@
 package com.john.minefield.model;
 
+import com.john.minefield.exception.ExplosionException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -30,10 +32,15 @@ public class Board {
     }
 
     public void open(int row, int column){
-        fields.parallelStream()
-            .filter(f -> f.getRow() == row && f.getColumn() == column)
-            .findFirst()
-            .ifPresent(f -> f.open());
+        try{
+            fields.parallelStream()
+                    .filter(f -> f.getRow() == row && f.getColumn() == column)
+                    .findFirst()
+                    .ifPresent(f -> f.open());
+        } catch (ExplosionException e){
+            fields.forEach(c -> c.setOpen(true));
+            throw e;
+        }
     }
 
     public void changeTag(int row, int column){

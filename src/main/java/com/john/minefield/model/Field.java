@@ -78,6 +78,10 @@ public class Field {
         return marked;
     }
 
+    public void setOpen(boolean open) {
+        this.isOpen = open;
+    }
+
     public boolean isOpen(){
         return isOpen;
     }
@@ -117,7 +121,7 @@ public class Field {
             return ColoredText.RED + "*" + ColoredText.RESET;
         }else if(isOpen && minesOnNeighbor() > 0){
             //Unecessery Long.toString(minesOnNeighbor())
-            return ColoredText.ORANGE + Long.toString(minesOnNeighbor()) + ColoredText.RESET;
+            return ColoredText.ORANGE + minesOnNeighbor() + ColoredText.RESET;
         }else if(isOpen){
             return " ";
         }else{
