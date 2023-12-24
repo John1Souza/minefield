@@ -1,7 +1,10 @@
 package com.john.minefield.model;
 
+import com.john.minefield.exception.ExplosionException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Field {
     private final int row;
@@ -35,5 +38,46 @@ public class Field {
         }else{
             return false;
         }
+    }
+
+    void changeTag(){
+        if(!isOpen){
+            marked = !marked;
+        }
+    }
+
+    boolean open(){
+        if(!isOpen && !marked){
+            isOpen = true;
+
+            if(undermined){
+                throw new ExplosionException();
+            }
+            if(securityNeighbor()){
+                neighbors.forEach(Field::open);
+            }
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+
+    boolean securityNeighbor(){
+        return neighbors.stream().noneMatch(v -> v.undermined);
+    }
+
+    void undermine(){
+        undermined = true;
+    }
+    public boolean isMarked(){
+        return marked;
+    }
+
+    public boolean isOpen(){
+        return isOpen;
+    }
+    public boolean isClosed(){
+        return !isOpen;
     }
 }
