@@ -85,9 +85,20 @@ public class Board {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
+        sb.append("  ");
+        for (int row = 0; row < columns; row++){
+            sb.append(" ");
+            sb.append(ColoredText.RED + row + ColoredText.RESET);
+            sb.append(" ");
+        }
+
+        sb.append("\n");
+
         int i = 0;
         for (int row = 0; row < rows; row++) {
 
+            sb.append(ColoredText.RED + row + ColoredText.RESET);
+            sb.append(" ");
             for (int column = 0; column < columns; column++) {
                 sb.append(" ");
                 sb.append(fields.get(i));
