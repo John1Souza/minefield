@@ -11,7 +11,7 @@ public class MinefieldApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MinefieldApplication.class, args);
 
-		Board board = new Board(6, 6, 6);
+		Board board = new Board(6, 6, 3);
 
 		new ConsoleBoard(board);
 

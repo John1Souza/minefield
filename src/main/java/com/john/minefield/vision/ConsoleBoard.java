@@ -67,6 +67,7 @@ public class ConsoleBoard {
                     board.changeTag(xy.next(), xy.next());
                 }
             }
+            System.out.println(board);
             System.out.println(ColoredText.GREEN + "YOU WIN!" + ColoredText.RESET);
         }catch (ExplosionException e){
             System.out.println(board);

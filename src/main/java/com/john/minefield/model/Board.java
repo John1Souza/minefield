@@ -65,9 +65,9 @@ public class Board {
         Predicate<Field> undermined = Field::isMined;
 
         do{
-           armedMines = fields.stream().filter(undermined).count();
-           int randomValue = (int)(Math.random() * fields.size());
-           fields.get(randomValue).undermine();
+            int randomValue = (int)(Math.random() * fields.size());
+            fields.get(randomValue).undermine();
+            armedMines = fields.stream().filter(undermined).count();
         }while(armedMines < mines);
     }
 
